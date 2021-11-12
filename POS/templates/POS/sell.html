@@ -3,47 +3,7 @@
 <html>
 
 <head>
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script>
-        $(document).ready(function() {
-          
-          var items = {};
-          var listc = 0;
-            $("#omak").click(function() {
-                var username = "response_msg";
-            });
-            $("#bar").on('keypress',function(e){
-                if(e.which == 13) {
-                  var bar = $(this).val();
-                  $.ajax({
-                    url: 'ajax/get_reciept/',
-                    data: {
-                        'bar': bar
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                      var in1 = 1;
-                      for (var key of Object.keys(items)) {
-                                if (key == data.name){
-                                    alert($("#list  > tbody")[0][0].value);
-                                    in1 = 0;
-                                  break;}
-                                  }if(in1 == 1){
-                                                
-                                  //items[data.name] = {'name' : 'a', 'bar' : 1, 'price' : 1, 'N': 1, 'order': listc};
-                                  items[data.name] = {'name' : data.name, 'bar' : bar, 'price' : data.price, Ni: 1, 'order': listc};
-                                  $("#list  > tbody").append('<tr><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td>' + items[data.name].Ni + '</td><td>' + items[data.name].price + '</td></tr>');
-
-                                  listc = listc + 1;
-                            }
-                    }
-                });
-                }
-            });
-        
-        
-          });
-    </script>
+    
 </head>
 <style>
     h1 {
@@ -72,9 +32,74 @@
         <!-- and so on... -->
     </tbody></table>
     </div>
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% block javascript %}{% endblock %}
 </body>
 
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#bar').focus();
+        var items = {};
+        var listc = 0;
+        // $(document).on('keypress',function(e){
+        //     alert(e.which);
+        // })
+        $(document).on('keypress',function(e){
+            if(e.which == 93){
+                // alert('done123');
+                if(Object.keys(items).length > 0){
+                    //alert('done');
+                    $.ajax({
+                url: 'ajax/submit_receipt/',
+                data: {
+                    'bar': bar
+                },
+                dataType: 'json',
+                success: function(data) {
+                  alert('Success!!')
+                }
+            });
+                }
+            }
+        })
+        $("#omak").click(function() {
+            var username = "response_msg";
+        });
+        $("#bar").on('keypress',function(e){
+            if(e.which == 13) {
+              var bar = $(this).val();
+              $(this).val('');
+              $.ajax({
+                url: 'ajax/get_item/',
+                data: {
+                    'bar': bar
+                },
+                dataType: 'json',
+                success: function(data) {
+                  var in1 = 1;
+                  for (var key of Object.keys(items)) {
+                            if (key == data.name){
+
+                                items[data.name].Ni = items[data.name].Ni + 1;
+                                //$("#list  > tbody").find('#l' + bar).value('<tr  id = "l' + bar + '"><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td>' + items[data.name].Ni + '</td><td>' + items[data.name].price + '</td></tr>');
+                                $('#l' + bar).text(items[data.name].Ni);
+                                in1 = 0;
+                              break;}
+                              }if(in1 == 1){
+                                            
+                              //items[data.name] = {'name' : 'a', 'bar' : 1, 'price' : 1, 'N': 1, 'order': listc};
+                              items[data.name] = {'name' : data.name, 'bar' : bar, 'price' : data.price, Ni: 1};
+                              $("#list  > tbody").append('<tr><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td  id = "l' + bar + '">1</td><td>' + items[data.name].price + '</td></tr>');
+
+                        }
+                }
+            });
+            }
+        });
+    
+        // $('#bar').focus();
+
+      });
+</script>
+{% block javascript %}{% endblock %}
 </html>

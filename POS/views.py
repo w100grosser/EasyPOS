@@ -92,7 +92,14 @@ def validate_username(request):
     }
     return JsonResponse(data)
 
-def get_reciept(request):
+def get_item(request):
+    item_bar = request.GET.get('bar', 0)
+    data = {
+        'name': Item.objects.filter(bar = item_bar)[0].name,'price': Item.objects.filter(bar = item_bar)[0].price
+    }
+    return JsonResponse(data)
+
+def submit_receipt(request):
     item_bar = request.GET.get('bar', 0)
     data = {
         'name': Item.objects.filter(bar = item_bar)[0].name,'price': Item.objects.filter(bar = item_bar)[0].price
