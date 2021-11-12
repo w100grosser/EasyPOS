@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#omak").click(function() {
+                var username = "response_msg";
+                $.ajax({
+                    url: 'ajax/validate_username/',
+                    data: {
+                        'username': username
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+
+                        if (data.is_taken) {
+                            for (var key of Object.keys(data.is_taken)) {
+                                $("#list").append('<li>' + key + '</li>');
+                            }
+
+                        }
+                    }
+                });
+            });
+            $.ajax({
+                url: '/ajax/validate_username/',
+                data: {
+                    'username': username
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.is_taken) {
+                        alert("A user with this username already exists.");
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<style>
+    h1 {
+        text-align: center;
+        color: aqua;
+    }
+
+    body {
+        background-color: burlywood;
+    }
+</style>
+
+<body>
+
+
+    <h1>اوراق الزيتون</h1>
+    <h1 id="response_msg"></h1>
+    <div>
+        <form action="{% url 'POS:addsell' sellReceipt.id %}" method="post"> {% csrf_token %} <input type="number" name="item_bar" autofocus="autofocus" />
+        </form>
+        <button id="omak">Click Me!</button>
+
+    </div background-color: blue> {% if latest_item_list %} <ul> {% for item in latest_item_list %} <li>
+            <a>{{ item }}</a>
+        </li> {% endfor %} </ul> {% endif %}
+    <div>
+        <ul id="list"> </ul>
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    {% block javascript %}{% endblock %}
+</body>
+
+</html>

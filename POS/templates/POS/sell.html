@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+          
+          var items = {};
+          var listc = 0;
+            $("#omak").click(function() {
+                var username = "response_msg";
+            });
+            $("#bar").on('keypress',function(e){
+                if(e.which == 13) {
+                  var bar = $(this).val();
+                  $.ajax({
+                    url: 'ajax/get_reciept/',
+                    data: {
+                        'bar': bar
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                      var in1 = 1;
+                      for (var key of Object.keys(items)) {
+                                if (key == data.name){
+                                    alert($("#list  > tbody")[0][0].value);
+                                    in1 = 0;
+                                  break;}
+                                  }if(in1 == 1){
+                                                
+                                  //items[data.name] = {'name' : 'a', 'bar' : 1, 'price' : 1, 'N': 1, 'order': listc};
+                                  items[data.name] = {'name' : data.name, 'bar' : bar, 'price' : data.price, Ni: 1, 'order': listc};
+                                  $("#list  > tbody").append('<tr><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td>' + items[data.name].Ni + '</td><td>' + items[data.name].price + '</td></tr>');
+
+                                  listc = listc + 1;
+                            }
+                    }
+                });
+                }
+            });
+        
+        
+          });
+    </script>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    body {
+    }
+</style>
+
+<body>
+
+
+    <h1>اوراق الزيتون</h1><div>
+    <input type="number" id="bar" name="quantity"></div>
+    <div class="table-wrapper">
+      
+        <table id="list" class="fl-table"><thead>
+          <tr>
+              <th>Name</th>
+              <th>Barcode</th>
+              <th>N</th>
+              <th>Price</th>
+          </tr>
+      </thead><tbody >
+        <!-- and so on... -->
+    </tbody></table>
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block javascript %}{% endblock %}
+</body>
+
+</html>

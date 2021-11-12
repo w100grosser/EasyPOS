@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<style>
+h1 {
+    text-align: center;
+    color: aqua;
+}
+body{
+    background-color: burlywood;
+}
+</style>
+<body>
+
+<h1>اوراق الزيتون</h1>
+
+
+{% if latest_item_list %}
+    <ul>
+    {% for item in latest_item_list %}
+        <li><a href="{% url 'POS:detail' item.id %}">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
+
+
+</body>
+</html>
