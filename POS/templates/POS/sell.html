@@ -14,14 +14,14 @@
     }
 </style>
 
-<body>
+<body style="background-color:#272429;">
 
 
-    <h1>اوراق الزيتون</h1><div>
+    <h1 style="color:#ffffff;">Market</h1><div>
     <input type="number" id="bar" name="quantity"></div>
     <div class="table-wrapper">
       
-        <table id="list" class="fl-table"><thead>
+        <table id="list" class ="fl-table"><thead>
           <tr>
               <th>Name</th>
               <th>Barcode</th>
@@ -35,9 +35,12 @@
 </body>
 
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% csrf_token %}
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
     $(document).ready(function() {
+        var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+
         $('#bar').focus();
         var items = {};
         var listc = 0;
@@ -46,18 +49,17 @@
         // })
         $(document).on('keypress',function(e){
             if(e.which == 93){
-                // alert('done123');
                 if(Object.keys(items).length > 0){
-                    //alert('done');
                     $.ajax({
                 url: 'ajax/submit_receipt/',
+                type: "POST",
                 data: {
-                    'bar': bar
+                    itemsl: JSON.stringify(items)
                 },
+
+                headers: {'X-CSRFToken': token },
                 dataType: 'json',
-                success: function(data) {
-                  alert('Success!!')
-                }
+                // contentType: "application/json; charset=UTF-8",
             });
                 }
             }

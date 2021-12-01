@@ -1,3 +1,5 @@
+import json
+
 from django.db.models.fields import DateField
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -97,12 +99,14 @@ def get_item(request):
     data = {
         'name': Item.objects.filter(bar = item_bar)[0].name,'price': Item.objects.filter(bar = item_bar)[0].price
     }
+    print('got item')
     return JsonResponse(data)
 
 def submit_receipt(request):
-    item_bar = request.GET.get('bar', 0)
+
+    itemsl = json.loads(request.POST['itemsl'])
     data = {
-        'name': Item.objects.filter(bar = item_bar)[0].name,'price': Item.objects.filter(bar = item_bar)[0].price
+        'test' : 1
     }
     return JsonResponse(data)
 
