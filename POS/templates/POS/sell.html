@@ -67,6 +67,16 @@
         $("#omak").click(function() {
             var username = "response_msg";
         });
+        $(document).on('click','#ll',function(){
+            var name = $(this).val();
+            items[name].Ni =  items[name].Ni - 1;
+            $('#l' + items[name].bar ).html('<button class="button1" value='+name +' type="button" id = "ll">Less</button>' + items[name].Ni + '<button class="button1" value='+name+' type="button" id = "lm">More</button>');
+        });
+        $(document).on('click','#lm',function(){
+            var name = $(this).val();
+            items[name].Ni =  items[name].Ni + 1;
+            $('#l' + items[name].bar ).html('<button class="button1" value='+name +' type="button" id = "ll">Less</button>' + items[name].Ni + '<button class="button1" value='+name+' type="button" id = "lm">More</button>');
+        });
         $("#bar").on('keypress',function(e){
             if(e.which == 13) {
               var bar = $(this).val();
@@ -83,15 +93,13 @@
                             if (key == data.name){
 
                                 items[data.name].Ni = items[data.name].Ni + 1;
-                                //$("#list  > tbody").find('#l' + bar).value('<tr  id = "l' + bar + '"><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td>' + items[data.name].Ni + '</td><td>' + items[data.name].price + '</td></tr>');
-                                $('#l' + bar).text(items[data.name].Ni);
+                                $('#l' + bar).html('<button class="button1" value='+data.name+' type="button" id = "ll">Less</button>' + items[data.name].Ni + '<button class="button1" value='+data.name+' type="button" id = "lm">More</button>');
                                 in1 = 0;
                               break;}
                               }if(in1 == 1){
                                             
-                              //items[data.name] = {'name' : 'a', 'bar' : 1, 'price' : 1, 'N': 1, 'order': listc};
-                              items[data.name] = {'name' : data.name, 'bar' : bar, 'price' : data.price, Ni: 1};
-                              $("#list  > tbody").append('<tr><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td  id = "l' + bar + '">1</td><td>' + items[data.name].price + '</td></tr>');
+                              items[data.name] = {name : data.name, bar : bar, price : data.price, Ni: 1};
+                              $("#list  > tbody").append('<tr><td>' + items[data.name].name + '</td><td>' + items[data.name].bar + '</td><td  id = "l' + bar + '"><button class="button1" value='+data.name+' type="button" id = "ll">Less</button>1<button class="button1" value='+data.name+' type="button" id = "lm">More</button></td><td>' + items[data.name].price + '</td></tr>');
 
                         }
                 }

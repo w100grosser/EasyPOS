@@ -16,19 +16,7 @@ def show(request):
     return render(request, 'POS/show.html', context)
 
 def sell(request):
-    latest_item_list = []
-    if not new_receipt(sellReceipt.objects.last().items):
-        sellReceipt_i = sellReceipt(add_date = timezone.now())
-        sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
-        sellReceipt_i.save()
-        context = {'sellReceipt' : sellReceipt_i,
-          'latest_item_list' :  list(),
-          }
-    else:
-        context = {'sellReceipt' : sellReceipt.objects.last(),
-          'latest_item_list' :  page_list(sellReceipt.objects.last().items),
-          }
-    return render(request, 'POS/sell.html', context)
+    return render(request, 'POS/sell.html')
 
 def detail(request, item_id):
     return HttpResponse("توكل على الله %s." % item_id)
@@ -105,9 +93,21 @@ def get_item(request):
 def submit_receipt(request):
 
     itemsl = json.loads(request.POST['itemsl'])
-    data = {
-        'test' : 1
-    }
+    
+    try:
+        sellReceipt_i = sellReceipt(add_date = timezone.now())
+        sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
+        sellReceipt_i.items = itemsl
+        sellReceipt_i.amount = sum([float(itemsl[x]['price'])*float(itemsl[x]['Ni']) for x in itemsl.keys()])
+        sellReceipt_i.save()
+        data = {
+            'success' : 1
+        }
+    except:
+        data = {
+            'success' : 0
+        }
+        return JsonResponse(data)
     return JsonResponse(data)
 
 # Create your views here.
