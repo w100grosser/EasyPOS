@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html>
 
 <head>
@@ -9,37 +8,42 @@
     h1 {
         text-align: center;
     }
-
-    body {}
 </style>
 
-<body style="background-color:#272429;">
-
-
+<body class="body-st">
     <h1 style="color:#ffffff;">Market</h1>
-    <div>
-        <input type="number" id="bar" name="quantity">
-    </div>
-    <div class="table-wrapper">
+    <div class="grid-container">
+        <div class="sgrid-container">
+            <div class="text-grid">
+                <input type="number" id="bar" name="quantity">
+            </div>
+            <div class="text-grid">
+                <p id='result' class='result'> </p>
+            </div>
+            <div class="text-grid">
+                <button id="sub-btn" class="sub-btn">Submit</button>
+            </div>
+        </div>
+        <div class="table-wrapper1">
 
-        <table id="list" class="fl-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Barcode</th>
-                    <th>N</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- and so on... -->
-            </tbody>
-        </table>
+            <table id="list" class="fl-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Barcode</th>
+                        <th>N</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- and so on... -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% csrf_token %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% csrf_token %}
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/our.js' %}"></script>
 {% block javascript %}{% endblock %}

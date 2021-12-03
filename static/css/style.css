@@ -6,11 +6,65 @@
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-.table-wrapper{
+
+.table-wrapper {
     margin: 10px 70px 70px;
-    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2);
     float: right;
-    width: 50%;
+    width: 30%;
+}
+
+.table-wrapper1 {
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2);
+}
+
+.sub-btn {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #4CAF50;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.sgrid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100px;
+}
+
+.text-grid {
+    text-align: center;
+    padding: 8px;
+    height: 70px;
+    /* color: #ffffff; */
+    margin: 0 auto;
+}
+
+.result {
+    color: #ffffff;
+    margin: auto auto;
+}
+
+.input {
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2);
+    float: left;
+    width: 30%;
+}
+
+.body-st {
+    background-color: #31353b;
 }
 
 .fl-table {
@@ -25,7 +79,8 @@
     background-color: white;
 }
 
-.fl-table td, .fl-table th {
+.fl-table td,
+.fl-table th {
     text-align: center;
     padding: 8px;
 }
@@ -40,7 +95,6 @@
     background: #4FC3A1;
 }
 
-
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
     background: #324960;
@@ -50,6 +104,7 @@
     background: #F8F8F8;
 }
 
+
 /* Responsive */
 
 @media (max-width: 767px) {
@@ -57,7 +112,7 @@
         display: block;
         width: 100%;
     }
-    .table-wrapper:before{
+    .table-wrapper:before {
         content: "Scroll horizontally >";
         display: block;
         text-align: right;
@@ -65,10 +120,12 @@
         color: white;
         padding: 0 0 10px;
     }
-    .fl-table thead, .fl-table tbody, .fl-table thead th {
+    .fl-table thead,
+    .fl-table tbody,
+    .fl-table thead th {
         display: block;
     }
-    .fl-table thead th:last-child{
+    .fl-table thead th:last-child {
         border-bottom: none;
     }
     .fl-table thead {
@@ -79,7 +136,8 @@
         position: relative;
         overflow-x: auto;
     }
-    .fl-table td, .fl-table th {
+    .fl-table td,
+    .fl-table th {
         padding: 20px .625em .625em .625em;
         height: 60px;
         vertical-align: middle;

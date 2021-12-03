@@ -94,9 +94,14 @@ def validate_username(request):
 
 def get_item(request):
     item_bar = request.GET.get('bar', 0)
-    data = {
-        'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price
-    }
+    try:
+        data = {
+            'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price
+        }
+    except:
+        return JsonResponse({
+            'bar': 0
+        })
     print('got item')
     return JsonResponse(data)
 
@@ -106,6 +111,8 @@ def submit_receipt(request):
     itemsl = json.loads(request.POST['itemsl'])
 
     try:
+
+        
         sellReceipt_i = sellReceipt(add_date=timezone.now())
         sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
         sellReceipt_i.items = itemsl
