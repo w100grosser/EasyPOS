@@ -7,7 +7,7 @@ from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import Item, sellReceipt
+from .models import *
 
 
 def show(request):
@@ -18,6 +18,9 @@ def show(request):
 
 def sell(request):
     return render(request, 'POS/sell.html')
+
+def buy(request):
+    return render(request, 'POS/buy.html')
 
 
 def detail(request, item_id):
@@ -109,16 +112,48 @@ def get_item(request):
 def submit_receipt(request):
 
     itemsl = json.loads(request.POST['itemsl'])
-
+    amount = 0  
     try:
 
         
         sellReceipt_i = sellReceipt(add_date=timezone.now())
         sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
         sellReceipt_i.items = itemsl
-        sellReceipt_i.amount = sum(
-            [float(itemsl[x]['price'])*float(itemsl[x]['Ni']) for x in itemsl.keys()])
+
+        for i in itemsl.keys():
+            amount += float(itemsl[i]['price'])*float(itemsl[i]['Ni'])
+            item = Item.objects.get(bar=itemsl[i]['bar'])   
+            item.stock = item.stock + itemsl[i]['Ni']
+            item.save()
         sellReceipt_i.save()
+
+        data = {
+            'success': 1
+        }
+    except:
+        data = {
+            'success': 0
+        }
+        return JsonResponse(data)
+    return JsonResponse(data)
+
+def submit_receipt_buy(request):
+
+    itemsl = json.loads(request.POST['itemsl'])
+    amount = request.POST['amountl']
+    print('test', itemsl, amount)
+    try:
+
+
+        buyReceipt_i = buyReceipt(add_date=timezone.now())
+        buyReceipt_i.name = str(buyReceipt.objects.last().id+1)
+        buyReceipt_i.items = itemsl
+        for i in itemsl.keys():
+            item = Item.objects.get(bar=itemsl[i]['bar'])   
+            item.stock = item.stock - itemsl[i]['Ni']
+            item.save()
+        buyReceipt_i.amount = int(amount)
+        buyReceipt_i.save()
         data = {
             'success': 1
         }

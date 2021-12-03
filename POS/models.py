@@ -26,3 +26,14 @@ class sellReceipt(models.Model):
         return self.add_date >= timezone.now() - timezone.timedelta(days=1)
     def __str__(self):
             return self.name
+
+class buyReceipt(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    items = models.JSONField(default=dict(items = {"__":{"bar":0}}))
+    add_date = models.DateTimeField('date added')
+    amount = models.FloatField(default=0)
+    #items = models.ManyToManyField(Item)
+    def was_published_recently(self):
+        return self.add_date >= timezone.now() - timezone.timedelta(days=1)
+    def __str__(self):
+            return self.name
