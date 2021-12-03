@@ -10,6 +10,8 @@ services:
     volumes:
       - ~/backups:/home/backups
       - ~/data/db:/var/lib/postgresql/data
+    ports:
+      - "5430:5432"
 
   web:
     build: .
