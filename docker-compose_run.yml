@@ -1,0 +1,24 @@
+version: "3.3"
+   
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: market
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: marketuser
+    volumes:
+      - ~/backups:/home/backups
+      - ~/data/db:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command:  bash -c "sleep 1 && /bin/bash ./EasyPOS/run.sh"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./POS/migrations:/root/EasyPOS/POS/migrations
+    environment:
+      POSTGRES_DB: market
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: marketuser
