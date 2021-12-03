@@ -123,7 +123,7 @@ def submit_receipt(request):
         for i in itemsl.keys():
             amount += float(itemsl[i]['price'])*float(itemsl[i]['Ni'])
             item = Item.objects.get(bar=itemsl[i]['bar'])   
-            item.stock = item.stock + itemsl[i]['Ni']
+            item.stock = item.stock - itemsl[i]['Ni']
             item.save()
         sellReceipt_i.save()
 
@@ -150,7 +150,7 @@ def submit_receipt_buy(request):
         buyReceipt_i.items = itemsl
         for i in itemsl.keys():
             item = Item.objects.get(bar=itemsl[i]['bar'])   
-            item.stock = item.stock - itemsl[i]['Ni']
+            item.stock = item.stock + itemsl[i]['Ni']
             item.save()
         buyReceipt_i.amount = int(amount)
         buyReceipt_i.save()
