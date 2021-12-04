@@ -33,10 +33,14 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')]
-    
+
 STATIC_ROOT = 'staticfiles'
 
 # Application definition
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 INSTALLED_APPS = [
     'POS.apps.PosConfig',
@@ -83,7 +87,7 @@ WSGI_APPLICATION = 'marketapp.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-        'default': {
+    'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 

@@ -9,29 +9,25 @@ from django.utils import timezone
 
 from .models import *
 
-# def addfiles():
-#     with open('bars.txt', 'r') as f:
-#         for i in f.read().split('\n'):
-#             try:
-#                 m = i.split(';')
-#                 print(int(float(m[0])),m[1], m[-1])
-#                 bar = int(float(m[0]))
-#                 name = m[-1]
-#                 price = float(m[1])
-#                 item = Item(add_date=timezone.now())
-#                 item.name = m[-1]
-#                 item.price = price
-#                 item.stock = 0
-#                 item.bar = bar
 
-#             except:
-#                 continue
+def main():
+    with open('bars.txt', 'r') as f:
+        for i in f.read().split('\n'):
+            try:
+                m = i.split(';')
+                print(int(float(m[0])),m[1], m[-1])
+                bar = int(float(m[0]))
+                name = m[-1]
+                price = float(m[1])
+                item = Item(add_date=timezone.now())
+                item.name = m[-1]
+                item.price = price
+                item.stock = 0
+                item.bar = bar
 
-#     data = {
-#         'success': 1
-#     }
-#     return JsonResponse(data)
-
+            except:
+                continue
+    return 1
 
 def show(request):
     latest_item_list = Item.objects.order_by('-add_date')[:5]
@@ -42,54 +38,12 @@ def show(request):
 def sell(request):
     return render(request, 'POS/sell.html')
 
-
 def buy(request):
     return render(request, 'POS/buy.html')
 
 
-def home(request):
-    return render(request, 'POS/home.html')
-
-
-def changeitem(request):
-    return render(request, 'POS/changeitem.html')
-
-
 def detail(request, item_id):
     return HttpResponse("توكل على الله %s." % item_id)
-
-
-def change_item(request):
-    itemsl = json.loads(request.POST['itemsl'])
-    if int(itemsl['bar']) < 1:
-        return JsonResponse({
-            'success': 0
-        })
-    if itemsl['newiteml'] == 0:
-        try:
-            item = Item.objects.get(bar=itemsl['bar'])
-            item.name = itemsl['name']
-            item.price = float(itemsl['price'])
-            item.save()
-        except:
-            return JsonResponse({
-                'success': 0
-            })
-    else:
-        try:
-            item = Item(add_date=timezone.now())
-            item.bar = int(itemsl['bar'])
-            item.price = float(itemsl['price'])
-            item.name = itemsl['name']
-            item.save()
-        except:
-            return JsonResponse({
-                'success': 0
-            })
-
-    return JsonResponse({
-        'success': 1
-    })
 
 
 def addsell(request, sellReceipt_id):
@@ -161,16 +115,10 @@ def validate_username(request):
 
 
 def get_item(request):
-    print('please')
-    item_bar = int(request.GET.get('bar', 0))
-    if item_bar < 1:
-        return JsonResponse({
-            'bar': 0
-        })
-    print(item_bar)
+    item_bar = request.GET.get('bar', 0)
     try:
         data = {
-            'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price, 'bar': Item.objects.filter(bar=item_bar)[0].bar
+            'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price
         }
     except:
         return JsonResponse({
@@ -183,16 +131,17 @@ def get_item(request):
 def submit_receipt(request):
 
     itemsl = json.loads(request.POST['itemsl'])
-    amount = 0
+    amount = 0  
     try:
 
+        
         sellReceipt_i = sellReceipt(add_date=timezone.now())
         sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
         sellReceipt_i.items = itemsl
 
         for i in itemsl.keys():
             amount += float(itemsl[i]['price'])*float(itemsl[i]['Ni'])
-            item = Item.objects.get(bar=itemsl[i]['bar'])
+            item = Item.objects.get(bar=itemsl[i]['bar'])   
             item.stock = item.stock - itemsl[i]['Ni']
             item.save()
         sellReceipt_i.save()
@@ -207,7 +156,6 @@ def submit_receipt(request):
         return JsonResponse(data)
     return JsonResponse(data)
 
-
 def submit_receipt_buy(request):
 
     itemsl = json.loads(request.POST['itemsl'])
@@ -215,11 +163,12 @@ def submit_receipt_buy(request):
     print('test', itemsl, amount)
     try:
 
+
         buyReceipt_i = buyReceipt(add_date=timezone.now())
         buyReceipt_i.name = str(buyReceipt.objects.last().id+1)
         buyReceipt_i.items = itemsl
         for i in itemsl.keys():
-            item = Item.objects.get(bar=itemsl[i]['bar'])
+            item = Item.objects.get(bar=itemsl[i]['bar'])   
             item.stock = item.stock + itemsl[i]['Ni']
             item.save()
         buyReceipt_i.amount = int(amount)
@@ -235,3 +184,5 @@ def submit_receipt_buy(request):
     return JsonResponse(data)
 
 # Create your views here.
+
+print(main())

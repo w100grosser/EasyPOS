@@ -1,0 +1,49 @@
+<!DOCTYPE html> {% load static %}
+<html>
+  <head> </head>
+  <style>
+    h1 {
+      text-align: center;
+    }
+  </style>
+
+  <body class="body-st">
+    <h1 style="color: #ffffff">Add/Change Item</h1>
+    <div class="sgrid-container">
+      <div class="text-grid">
+        <p class="result">Barcode :</p>
+      </div>
+      <div class="text-grid">
+        <input type="number" id="bar"/>
+      </div>
+      <div class="text-grid">
+        <p class="result">Name :</p>
+      </div>
+      <div class="text-grid">
+        <input type="text" id="name"/>
+      </div>
+      <div class="text-grid">
+        <p class="result">Price :</p>
+      </div>
+      <div class="text-grid">
+        <input type="number" id="price"/>
+      </div>
+      <div class="text-grid">
+        <button id="sub-btn" class="sub-btn">Submit</button>
+      </div>
+      <div class="text-grid">
+        <p id="result" class="result"></p>
+      </div>
+    </div>
+  </body>
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="{% static 'ims/favicon.ico' %}"
+  />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  {% csrf_token %}
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'js/changeitem.js' %}"></script>
+  {% block javascript %}{% endblock %}
+</html>
