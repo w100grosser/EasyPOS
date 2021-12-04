@@ -161,6 +161,7 @@ function Submit() {
     $('#total').text('');
     total = 0;
     $('#total').text(total.toFixed(2));
+    $("#bar").val('')
 
   }
 }
