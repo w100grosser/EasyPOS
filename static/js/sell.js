@@ -114,12 +114,12 @@ function Nincrease(name) {
 
 function Ndecrease(name) {
   if (items[name].Ni < 2) {
-    $("#t" + items[name].bar).remove();
-    delete items[name];
     if(items[name].Ni == 1){
       total = total - items[name].price;
       $('#total').text(total.toFixed(2));
     }
+    $("#t" + items[name].bar).remove();
+    delete items[name];
   } else {
     items[name].Ni = items[name].Ni - 1;
     total = total - items[name].price;
@@ -160,5 +160,7 @@ function Submit() {
     $("#list  > tbody").html("");
     $('#total').text('');
     total = 0;
+    $('#total').text(total.toFixed(2));
+
   }
 }
