@@ -9,28 +9,30 @@ from django.utils import timezone
 
 from .models import *
 
-# def addfiles():
-#     with open('bars.txt', 'r') as f:
-#         for i in f.read().split('\n'):
-#             try:
-#                 m = i.split(';')
-#                 print(int(float(m[0])),m[1], m[-1])
-#                 bar = int(float(m[0]))
-#                 name = m[-1]
-#                 price = float(m[1])
-#                 item = Item(add_date=timezone.now())
-#                 item.name = m[-1]
-#                 item.price = price
-#                 item.stock = 0
-#                 item.bar = bar
+def addfiles(request):
+    with open('/root/EasyPOS/POS/bars.txt', 'r') as f:
+        for i in f.read().split('\n'):
+            try:
+                m = i.split(';')
+                print(int(float(m[0])),m[1], m[-1])
+                bar = int(float(m[0]))
+                name = m[-1]
+                price = float(m[1])
+                item = Item(add_date=timezone.now())
+                item.name = name
+                item.price = price
+                item.stock = 0
+                item.bar = bar
+                item.save()
 
-#             except:
-#                 continue
+            except Exception as e:
+                print(e)
+                continue
 
-#     data = {
-#         'success': 1
-#     }
-#     return JsonResponse(data)
+    data = {
+        'success': 1
+    }
+    return JsonResponse(data)
 
 
 def show(request):

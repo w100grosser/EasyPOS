@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^ajax/submit_receipt/$', views.submit_receipt, name='submit_receipt'),
     url(r'^ajax/submit_receipt_buy/$', views.submit_receipt_buy, name='submit_receipt_buy'),
     url(r'^ajax/change_item/$', views.change_item, name='change_item'),
+    url(r'^ajax/addfiles/$', views.addfiles, name='addfiles'),
     #path('/sellReceipt/<int:sellReceipt_id>/', views.addsell, name='sellReceipt'),
 ]

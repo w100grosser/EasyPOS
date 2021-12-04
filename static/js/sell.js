@@ -1,5 +1,6 @@
 var items = {};
 var token = $('input[name="csrfmiddlewaretoken"]').attr("value");
+var total = 0;
 $(document).ready(function () {
   $("#bar").focus();
   var listc = 0;
@@ -71,6 +72,8 @@ function adddata(bar) {
             price: data.price,
             Ni: 1,
           };
+          total = total + items[data.name].price;
+          $('#total').text(total.toFixed(2));
           $("#list  > tbody").append(
             '<tr  id = "t' +
               bar +
@@ -96,6 +99,8 @@ function adddata(bar) {
 
 function Nincrease(name) {
   items[name].Ni = items[name].Ni + 1;
+  total = total + items[name].price;
+  $('#total').text(total.toFixed(2));
   $("#l" + items[name].bar).html(
     '<button class="button1" value=' +
       name +
@@ -111,8 +116,14 @@ function Ndecrease(name) {
   if (items[name].Ni < 2) {
     $("#t" + items[name].bar).remove();
     delete items[name];
+    if(items[name].Ni == 1){
+      total = total - items[name].price;
+      $('#total').text(total.toFixed(2));
+    }
   } else {
     items[name].Ni = items[name].Ni - 1;
+    total = total - items[name].price;
+    $('#total').text(total.toFixed(2));
     $("#l" + items[name].bar).html(
       '<button class="button1" value=' +
         name +
@@ -147,5 +158,7 @@ function Submit() {
     });
     items = {};
     $("#list  > tbody").html("");
+    $('#total').text('');
+    total = 0;
   }
 }

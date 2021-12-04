@@ -9,3 +9,17 @@ $(document).ready(function () {
     var username = "response_msg";
   });
 });
+
+$("#addfiles").click(function () {
+  $.ajax({
+    url: "ajax/addfiles/",
+    data: {
+      bar: 0,
+    },
+    dataType: "json",
+    success: function (data) {
+      if (data.success == 0) {
+      }
+    },
+  });
+});
