@@ -137,6 +137,7 @@ function Ndecrease(name) {
 }
 
 function Submit() {
+  $("#bar").val('');
   if (Object.keys(items).length > 0) {
     $.ajax({
       url: "ajax/submit_receipt/",
@@ -161,7 +162,6 @@ function Submit() {
     $('#total').text('');
     total = 0;
     $('#total').text(total.toFixed(2));
-    $("#bar").val('');
 
   }
 }
