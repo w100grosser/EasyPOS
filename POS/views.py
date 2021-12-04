@@ -191,13 +191,14 @@ def submit_receipt(request):
         sellReceipt_i = sellReceipt(add_date=timezone.now())
         sellReceipt_i.name = str(sellReceipt.objects.last().id+1)
         sellReceipt_i.items = itemsl
-        sellReceipt_i.amount = amount
 
         for i in itemsl.keys():
             amount += float(itemsl[i]['price'])*float(itemsl[i]['Ni'])
             item = Item.objects.get(bar=itemsl[i]['bar'])
             item.stock = item.stock - itemsl[i]['Ni']
             item.save()
+        
+        sellReceipt_i.amount = amount
         sellReceipt_i.save()
 
         data = {
