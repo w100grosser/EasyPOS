@@ -6,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 
 class Item(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200, unique=False)
     add_date = models.DateTimeField('date added')
     price = models.FloatField()
     bar = models.BigIntegerField(unique=True)
@@ -17,7 +17,7 @@ class Item(models.Model):
         return self.add_date >= timezone.now() - timezone.timedelta(days=1)
 
 class sellReceipt(models.Model):
-    name = models.CharField(max_length=200, unique=False)
+    name = models.CharField(max_length=200, unique=True)
     items = models.JSONField(default=dict(items = {"__":{"bar":0}}))
     add_date = models.DateTimeField('date added')
     amount = models.FloatField(default=0)
