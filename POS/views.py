@@ -164,19 +164,20 @@ def validate_username(request):
 
 def get_item(request):
     print('please')
-    item_bar = int(request.GET.get('bar', 0))
-    if item_bar < 1:
-        return JsonResponse({
-            'bar': 0
-        })
-    print(item_bar)
     try:
+        item_bar = int(request.GET.get('bar', '0'))
+        if item_bar < 1:
+            return JsonResponse({
+                'bar': 0
+            })
+        print(item_bar)
         data = {
-            'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price, 'bar': Item.objects.filter(bar=item_bar)[0].bar
+            'name': Item.objects.filter(bar=item_bar)[0].name, 'price': Item.objects.filter(bar=item_bar)[0].price, 'bar': str(Item.objects.filter(bar=item_bar)[0].bar)
         }
-    except:
+    except Exception as e: 
+        print(e)
         return JsonResponse({
-            'bar': 0
+            'bar': '0'
         })
     print('got item')
     return JsonResponse(data)

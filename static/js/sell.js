@@ -8,17 +8,16 @@ $(document).ready(function () {
   //     alert(e.which);
   // })
   $(document).on("keypress", function (e) {
-    if (e.which == 93) {
-      Submit();
-      $("#bar").focus();
-    }
     if (e.which == 113) {
       var pageURL = $(location).attr("href");
       var window1 = window.open(pageURL);
       window1.focus();
     }
   });
-
+  shortcut.add("F2", function () {
+    Submit();
+    $("#bar").focus();
+  });
   $(document).on("click", function (e) {
     $("#bar").focus();
   });
@@ -36,59 +35,59 @@ $(document).ready(function () {
     window1.focus();
   });
   $(document).on("click", "#ll", function () {
-    var name = $(this).val();
-    Ndecrease(name);
+    var barl = $(this).val();
+    Ndecrease(barl.toString());
   });
   $(document).on("click", "#lm", function () {
-    var name = $(this).val();
-    Nincrease(name);
+    var barm = $(this).val();
+    Nincrease(barm.toString());
   });
   $("#bar").on("keypress", function (e) {
     if (e.which == 13) {
       var bar = $(this).val();
       $(this).val("");
-      adddata(bar);
+      adddata(bar.toString());
     }
   });
 
   // $('#bar').focus();
 });
 
-function adddata(bar) {
+function adddata(barl) {
   $.ajax({
     url: "ajax/get_item/",
     data: {
-      bar: bar,
+      bar: barl,
     },
     dataType: "json",
     success: function (data) {
-      if (data.bar != 0) {
-        if (Object.keys(items).includes(data.name)) {
-          Nincrease(data.name);
+      if (data.bar != "0") {
+        if (Object.keys(items).includes(data.bar)) {
+          Nincrease(data.bar);
         } else {
-          items[data.name] = {
+          items[data.bar] = {
             name: data.name,
-            bar: bar,
+            bar: data.bar,
             price: data.price,
             Ni: 1,
           };
-          total = total + items[data.name].price;
-          $('#total').text(total.toFixed(2));
+          total = total + items[data.bar].price;
+          $("#total").text(total.toFixed(2));
           $("#list  > tbody").append(
             '<tr  id = "t' +
-              bar +
+              data.bar +
               '"><td>' +
-              items[data.name].name +
+              items[data.bar].name +
               "</td><td>" +
-              items[data.name].bar +
+              items[data.bar].bar +
               '</td><td  id = "l' +
-              bar +
+              data.bar +
               '"><button class="button1" value=' +
-              data.name +
+              data.bar +
               ' type="button" id = "ll">Less</button>1<button class="button1" value=' +
-              data.name +
+              data.bar +
               ' type="button" id = "lm">More</button></td><td>' +
-              items[data.name].price +
+              items[data.bar].price +
               "</td></tr>"
           );
         }
@@ -97,47 +96,46 @@ function adddata(bar) {
   });
 }
 
-function Nincrease(name) {
-  items[name].Ni = items[name].Ni + 1;
-  total = total + items[name].price;
-  $('#total').text(total.toFixed(2));
-  $("#l" + items[name].bar).html(
+function Nincrease(barm) {
+  items[barm].Ni = items[barm].Ni + 1;
+  total = total + items[barm].price;
+  $("#total").text(total.toFixed(2));
+  $("#l" + items[barm].bar).html(
     '<button class="button1" value=' +
-      name +
+      barm +
       ' type="button" id = "ll">Less</button>' +
-      items[name].Ni +
+      items[barm].Ni +
       '<button class="button1" value=' +
-      name +
+      barm +
       ' type="button" id = "lm">More</button>'
   );
 }
 
-function Ndecrease(name) {
-  if (items[name].Ni < 2) {
-    if(items[name].Ni == 1){
-      total = total - items[name].price;
-      $('#total').text(total.toFixed(2));
+function Ndecrease(barl) {
+  if (items[barl].Ni < 2) {
+    if (items[barl].Ni == 1) {
+      total = total - items[barl].price;
+      $("#total").text(total.toFixed(2));
     }
-    $("#t" + items[name].bar).remove();
-    delete items[name];
+    $("#t" + items[barl].bar).remove();
+    delete items[barl];
   } else {
-    items[name].Ni = items[name].Ni - 1;
-    total = total - items[name].price;
-    $('#total').text(total.toFixed(2));
-    $("#l" + items[name].bar).html(
+    items[barl].Ni = items[barl].Ni - 1;
+    total = total - items[barl].price;
+    $("#total").text(total.toFixed(2));
+    $("#l" + items[barl].bar).html(
       '<button class="button1" value=' +
-        name +
+        barl +
         ' type="button" id = "ll">Less</button>' +
-        items[name].Ni +
+        items[barl].Ni +
         '<button class="button1" value=' +
-        name +
+        barl +
         ' type="button" id = "lm">More</button>'
     );
   }
 }
 
 function Submit() {
-  $("#bar").val('');
   if (Object.keys(items).length > 0) {
     $.ajax({
       url: "ajax/submit_receipt/",
@@ -159,9 +157,8 @@ function Submit() {
     });
     items = {};
     $("#list  > tbody").html("");
-    $('#total').text('');
+    $("#total").text("");
     total = 0;
-    $('#total').text(total.toFixed(2));
-
+    $("#total").text(total.toFixed(2));
   }
 }
