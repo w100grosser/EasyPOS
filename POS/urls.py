@@ -12,6 +12,7 @@ urlpatterns = [
     path('buy', views.buy, name='buy'),
     path('home', views.home, name='home'),
     path('changeitem', views.changeitem, name='changeitem'),
+    path('sales231111', views.sales, name='sales231111'),
     path('item/<int:item_id>/', views.detail, name='detail'),
     path('sell/<int:sellReceipt_id>/', views.addsell, name='addsell'),
     path('sell/jquery-3.6.0.min.js/', views.jsload, name='jsload'),
@@ -22,5 +23,6 @@ urlpatterns = [
     url(r'^ajax/submit_receipt_buy/$', views.submit_receipt_buy, name='submit_receipt_buy'),
     url(r'^ajax/change_item/$', views.change_item, name='change_item'),
     url(r'^ajax/addfiles/$', views.addfiles, name='addfiles'),
+    url(r'^ajax/getsales/$', views.getsales, name='getsales'),
     #path('/sellReceipt/<int:sellReceipt_id>/', views.addsell, name='sellReceipt'),
 ]

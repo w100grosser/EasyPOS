@@ -1,37 +1,37 @@
 <!DOCTYPE html> {% load static %}
 <html>
-  <head> </head>
-  <style>
-    h1 {
-      text-align: center;
-    }
-  </style>
 
-  <body class="body-st">
+<head> </head>
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+
+<body class="body-st">
     <h1 style="color: #ffffff">Market Home</h1>
     <div class="sgrid-container">
-      <div class="text-grid">
-        <a href="{% url 'POS:sell' %}" id="sell" class="sub-btn">Sell</a>
-      </div>
-      <div class="text-grid">
-        <a href="{% url 'POS:buy' %}" id="buy" class="sub-btn">Buy</a>
-      </div>
-      <div class="text-grid">
-        <a href="{% url 'POS:changeitem' %}" id="changeitem" class="sub-btn">changeitem</a>
-      </div>
-      <div class="text-grid">
-        <button id="addfiles" class="sub-btn">Add Files</button>
-      </div>
+        <div class="text-grid">
+            <a href="{% url 'POS:sell' %}" id="sell" class="sub-btn">Sell</a>
+        </div>
+        <div class="text-grid">
+            <a href="{% url 'POS:buy' %}" id="buy" class="sub-btn">Buy</a>
+        </div>
+        <div class="text-grid">
+            <a href="{% url 'POS:changeitem' %}" id="changeitem" class="sub-btn">changeitem</a>
+        </div>
+        <div class="text-grid">
+            <a id="sales" class="sub-btn">Get Sales</a>
+        </div>
+        <div class="text-grid">
+            <button id="addfiles" class="sub-btn">Add Files</button>
+        </div>
     </div>
-  </body>
-  <link
-    rel="shortcut icon"
-    type="image/png"
-    href="{% static 'ims/favicon.ico' %}"
-  />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  {% csrf_token %}
-  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-  <script src="{% static 'js/home.js' %}"></script>
-  {% block javascript %}{% endblock %}
+</body>
+<link rel="shortcut icon" type="image/png" href="{% static 'ims/favicon.ico' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" /> {% csrf_token %}
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+{% block javascript %}{% endblock %}
+
 </html>

@@ -48,6 +48,9 @@ def sell(request):
 def buy(request):
     return render(request, 'POS/buy.html')
 
+def sales(request):
+    return render(request, 'POS/sales.html')
+
 
 def home(request):
     return render(request, 'POS/home.html')
@@ -181,6 +184,17 @@ def get_item(request):
         })
     print('got item')
     return JsonResponse(data)
+
+def getsales(request):
+    date = request.POST['date']
+    date1 = request.POST['date1']
+    print(date)
+    print(type(date))
+    receipts = sellReceipt.objects.filter(add_date__range=[date, date1])
+    print(receipts[0])
+    return JsonResponse({
+        'date': sum([x.amount for x in receipts])
+    })
 
 
 def submit_receipt(request):

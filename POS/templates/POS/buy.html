@@ -27,7 +27,7 @@
                 <p class='result'> Amount </p>
             </div>
             <div class="text-grid">
-                <button id="sub-btn" class="sub-btn">Submit</button>
+                <button id="newbuy-btn" class="sub-btn">Submit</button>
             </div>
         </div>
         <div class="table-wrapper1">
@@ -37,8 +37,9 @@
                     <tr>
                         <th>Name</th>
                         <th>Barcode</th>
-                        <th>N</th>
                         <th>Price</th>
+                        <th>N</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +52,8 @@
 <link rel="shortcut icon" type="image/png" href="{% static 'ims/favicon.ico' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% csrf_token %}
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'js/buy.js' %}"></script>
+<script src="{% static 'js/sell.js' %}"></script>
+<script src="{% static 'js/shortcut.js' %}"></script>
 {% block javascript %}{% endblock %}
 
 </html>
