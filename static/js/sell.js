@@ -88,6 +88,10 @@ function adddata(barl) {
               data.bar +
               ' type="button" id = "lm">More</button></td><td>' +
               items[data.bar].price +
+              '</td><td id = "lt' +
+              data.bar +
+              '">' +
+              items[data.bar].price +
               "</td></tr>"
           );
         }
@@ -160,5 +164,30 @@ function Submit() {
     $("#total").text("");
     total = 0;
     $("#total").text(total.toFixed(2));
+  }
+}
+
+function fillrow(bar, name, Ni, price){
+  if(Object.keys(items).includes(bar)){
+    $("#t" + bar).html(
+    '<tr  id = "t' +
+    bar +
+    '"><td>' +
+    iname +
+    "</td><td>" +
+    bar +
+    '</td><td><button class="button1" value=' +
+    bar +
+    ' type="button" id = "ll">Less</button>' + Ni +  '<button class="button1" value=' +
+    bar +
+    ' type="button" id = "lm">More</button></td><td>' +
+    price +
+    '</td><td id = "lt' +
+    bar +
+    '">' +
+    price * Ni +
+    "</td></tr>")
+  }else{
+
   }
 }
