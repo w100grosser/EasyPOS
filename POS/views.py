@@ -171,7 +171,7 @@ def get_item(request):
         item_bar = int(request.GET.get('bar', '0'))
         if item_bar < 1:
             return JsonResponse({
-                'bar': 0
+                'bar': '0'
             })
         print(item_bar)
         data = {

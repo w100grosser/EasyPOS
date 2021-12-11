@@ -1,6 +1,9 @@
 var items = {};
 var token = $('input[name="csrfmiddlewaretoken"]').attr("value");
 var total = 0;
+var snd = new Audio($('input[name="sound"]').attr("value"));
+
+snd.volume = 1;
 $(document).ready(function() {
     var pageURL = $(location).attr("href");
     $("#bar").focus();
@@ -86,6 +89,9 @@ function adddata(barl) {
                         Ni: 1,
                     };
                 }
+            } else {
+                snd.play();
+                alert('Item not found');
             }
         },
     });

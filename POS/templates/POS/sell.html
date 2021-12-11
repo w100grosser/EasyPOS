@@ -50,7 +50,8 @@
     </div>
 </body>
 <link rel="shortcut icon" type="image/png" href="{% static 'ims/favicon.ico' %}" />
-<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% csrf_token %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<input type="hidden" name="sound" value="{% static 'audio/error-adjust.mp3' %}"> {% csrf_token %}
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/sell.js' %}"></script>
 <script src="{% static 'js/shortcut.js' %}"></script>
