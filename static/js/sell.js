@@ -18,6 +18,28 @@ $(document).ready(function() {
             window1.focus();
         }
     });
+    $(document).on("keypress", function(e) {
+        if (e.which == 93) {
+            $.ajax({
+                url: "ajax/print_receipt/",
+                type: "POST",
+                data: {
+                    itemsl: JSON.stringify(items),
+                },
+
+                headers: { "X-CSRFToken": token },
+                dataType: "json",
+                success: function(data) {
+                    if (data.success == 1) {
+                        $("#result").text("Success");
+                    } else {
+                        $("#result").text("Fail");
+                    }
+                },
+                // contentType: "application/json; charset=UTF-8",
+            });
+        }
+    });
     shortcut.add("F2", function() {
         Submit();
         $("#bar").focus();

@@ -6,8 +6,10 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
+from .printing import print_receipt
 
 from .models import *
+printer = print_receipt()
 
 def addfiles(request):
     with open('/root/EasyPOS/POS/bars.txt', 'r') as f:
@@ -216,6 +218,24 @@ def submit_receipt(request):
         sellReceipt_i.amount = amount
         sellReceipt_i.save()
 
+        data = {
+            'success': 1
+        }
+    except:
+        data = {
+            'success': 0
+        }
+        return JsonResponse(data)
+    return JsonResponse(data)
+
+
+def print_Receipt(request):
+
+    itemsl = json.loads(request.POST['itemsl'])
+    amount = 0
+    try:
+
+        printer.print_r(itemsl)
         data = {
             'success': 1
         }

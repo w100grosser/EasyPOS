@@ -1,2 +1,6 @@
 Django
-psycopg2
+psycopg2-binary
+pillow
+escpos
+python-bidi
+arabic-reshaper

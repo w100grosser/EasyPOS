@@ -16,6 +16,7 @@ services:
   web:
     build: .
     command:  bash -c "sleep 1 && /bin/bash ./EasyPOS/run.sh"
+    privileged: true
     ports:
       - "8000:8000"
     volumes:
@@ -25,3 +26,4 @@ services:
       POSTGRES_PASSWORD: 12345
       POSTGRES_USER: marketuser
       DJANGO_SUPERUSER_PASSWORD: zzzz1963
+      PYTHONIOENCODING: utf8
