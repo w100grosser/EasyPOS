@@ -1,2 +1,5 @@
+pandas
 Django
 psycopg2
+dash
+plotly

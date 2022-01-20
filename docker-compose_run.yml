@@ -18,6 +18,7 @@ services:
     command:  bash -c "sleep 1 && /bin/bash ./EasyPOS/run.sh"
     ports:
       - "8000:8000"
+      - "8050:8050"
     volumes:
       - ./POS/migrations:/root/EasyPOS/POS/migrations
     environment:

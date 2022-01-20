@@ -51,7 +51,6 @@ def buy(request):
 def sales(request):
     return render(request, 'POS/sales.html')
 
-
 def home(request):
     return render(request, 'POS/home.html')
 
