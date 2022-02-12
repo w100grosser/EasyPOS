@@ -21,7 +21,7 @@ class print_receipt:
             
         with open('/root/EasyPOS/POS/readme.txt', 'w') as f:
             f.write('readme')
-        # self.p = Usb(0x1504, 0x006e, 0,in_ep=0x81, out_ep=0x02)
+        self.p = Usb(0x1504, 0x006e, 0,in_ep=0x81, out_ep=0x02)
         nlines = 0
         for i in items.keys():
             lines = self.name_p(items[i]['name'])
@@ -68,10 +68,10 @@ class print_receipt:
         draw = ImageDraw.Draw(dst)
         draw.text((180, 0), get_display(arabic_reshaper.reshape(
             "اوراق الزيتون")), (0, 0, 0), font=font1)
-        dst.save('/root/EasyPOS/POS/migrations/1.png')
-        # self.p.image(dst)
-        # self.p.cut()
-        # self.p.close()
+        # dst.save('/root/EasyPOS/POS/migrations/1.png')
+        self.p.image(dst)
+        self.p.cut()
+        self.p.close()
     
         with open('/root/EasyPOS/POS/readme.txt', 'w') as f:
             f.write('')
