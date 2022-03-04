@@ -19,7 +19,7 @@ $(document).ready(function() {
         }
     });
     $(document).on("keypress", function(e) {
-        if (e.which == 93) {
+        if (e.which == 93 || e.which == 1583) {
             $.ajax({
                 url: "ajax/print_receipt/",
                 type: "POST",
