@@ -18,7 +18,7 @@ class Item(models.Model):
 
 class sellReceipt(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    items = models.JSONField(default=dict(items = {"__":{"bar":0}}))
+    items = models.JSONField(default=dict)
     add_date = models.DateTimeField('date added')
     amount = models.FloatField(default=0)
     #items = models.ManyToManyField(Item)
@@ -29,7 +29,7 @@ class sellReceipt(models.Model):
 
 class buyReceipt(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    items = models.JSONField(default=dict(items = {"__":{"bar":0}}))
+    items = models.JSONField(default=dict)
     add_date = models.DateTimeField('date added')
     amount = models.FloatField(default=0)
     #items = models.ManyToManyField(Item)

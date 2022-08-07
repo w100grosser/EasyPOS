@@ -7,7 +7,7 @@ WORKDIR /root
 RUN apt-get update && apt-get install -y software-properties-common gcc && \
     add-apt-repository -y ppa:deadsnakes/ppa
 
-RUN apt-get update && apt-get install -y python3.6 python3-distutils python3-pip python3-apt
+RUN apt-get update && apt-get install -y python3.6 python3.6-distutils python3-pip python3-apt git
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         postgresql-client usbutils \
