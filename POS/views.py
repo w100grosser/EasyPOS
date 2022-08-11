@@ -9,6 +9,8 @@ from django.utils import timezone
 from .printing import print_receipt
 
 from .models import *
+printer = print_receipt()
+
 
 def addfiles(request):
     with open('/root/EasyPOS/POS/bars.txt', 'r') as f:
@@ -232,21 +234,34 @@ def print_Receipt(request):
 
     itemsl = json.loads(request.POST['itemsl'])
     amount = 0
+    data = {
+        'success': 0,
+        'printing': 0
+    }
     try:
 
-        printer = print_receipt()
-        printer.print_r(itemsl)
-        data = {
-            'success': 1
-        }
+        printer_status = printer.print_r(itemsl)
+        if printer_status == 1:
+            data = {
+                'success': 1,
+                'printing': 0
+            }
+            print("Success")
+        if printer_status == 2:
+            data = {
+                'success': 1,
+                'printing': 1
+            }
+            print("Wait, still printing!")
     except:
         data = {
-            'success': 0
+            'success': 0,
+            'printing': -1
         }
         print("Printing failed")
-        del printer
+        # del printer
         return JsonResponse(data)
-    del printer
+    # del printer
     return JsonResponse(data)
 
 

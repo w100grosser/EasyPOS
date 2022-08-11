@@ -23,6 +23,7 @@ services:
       - "8000:8000"
     volumes:
       - ./POS/migrations:/root/EasyPOS/POS/migrations
+      - /dev:/dev
     environment:
       POSTGRES_DB: market
       POSTGRES_PASSWORD: 12345
