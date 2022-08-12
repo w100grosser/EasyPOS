@@ -1,0 +1,4 @@
+pillow
+escpos
+python-bidi
+arabic-reshaper

@@ -1,8 +1,22 @@
 version: "3.3"
    
 services:
+
+  printer:
+    build: ./printer_image
+    restart: always
+    command:  bash -c "sleep 1 && /bin/bash ./printer/run.sh"
+    privileged: true
+    # ports:
+    #   - "8000:8000"
+    volumes:
+      - /dev:/dev
+    environment:
+      PYTHONIOENCODING: utf8
+
   db:
     image: postgres:latest
+    restart: always
     environment:
       POSTGRES_DB: market
       POSTGRES_PASSWORD: 12345
@@ -15,6 +29,7 @@ services:
 
   web:
     build: .
+    restart: always
     depends_on:
       - "db"
     command:  bash -c "sleep 1 && /bin/bash ./EasyPOS/run.sh"
