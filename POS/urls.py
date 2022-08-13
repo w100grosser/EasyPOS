@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import url
 
 from . import views
 
@@ -16,15 +15,13 @@ urlpatterns = [
     path('item/<int:item_id>/', views.detail, name='detail'),
     path('sell/<int:sellReceipt_id>/', views.addsell, name='addsell'),
     path('sell/jquery-3.6.0.min.js/', views.jsload, name='jsload'),
-    url(r'^ajax/validate_username/$',
+    path('ajax/validate_username/',
         views.validate_username, name='validate_username'),
-    url(r'^ajax/get_item/$', views.get_item, name='get_item'),
-    url(r'^ajax/submit_receipt/$', views.submit_receipt, name='submit_receipt'),
-    url(r'^ajax/submit_receipt_buy/$', views.submit_receipt_buy, name='submit_receipt_buy'),
-    url(r'^ajax/change_item/$', views.change_item, name='change_item'),
-    url(r'^ajax/addfiles/$', views.addfiles, name='addfiles'),
-    url(r'^ajax/getsales/$', views.getsales, name='getsales'),
-    url(r'^ajax/print_receipt/$', views.print_Receipt, name='print_receipt'),
-    
-    #path('/sellReceipt/<int:sellReceipt_id>/', views.addsell, name='sellReceipt'),
+    path('ajax/get_item/', views.get_item, name='get_item'),
+    path('ajax/submit_receipt/', views.submit_receipt, name='submit_receipt'),
+    path('ajax/submit_receipt_buy/', views.submit_receipt_buy, name='submit_receipt_buy'),
+    path('ajax/change_item/', views.change_item, name='change_item'),
+    path('ajax/addfiles/', views.addfiles, name='addfiles'),
+    path('ajax/getsales/', views.getsales, name='getsales'),
+    path('ajax/print_receipt/', views.print_Receipt, name='print_receipt'),    
 ]

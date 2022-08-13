@@ -153,7 +153,7 @@ class Usb(Escpos):
         :param usb_args: USB arguments
         """
         for dev in usb.core.find(find_all = True):
-            if dev.idVendor == int(usb_args["idVendor"], 16) and int(dev.idProduct, 16) == usb_args["idProduct"]:
+            if dev.idVendor == usb_args["idVendor"] and dev.idProduct == usb_args["idProduct"]:
                 self.device = dev
 
         # self.device = usb.core.find(**usb_args)
