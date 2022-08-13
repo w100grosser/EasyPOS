@@ -17,10 +17,9 @@ services:
     build: .
     depends_on:
       - "db"
+    network_mode: "host"
     command:  bash -c "sleep 1 && /bin/bash ./EasyPOS/run.sh"
     privileged: true
-    ports:
-      - "8000:8000"
     volumes:
       - ./POS/migrations:/root/EasyPOS/POS/migrations
       - /dev:/dev
