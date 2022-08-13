@@ -17,8 +17,8 @@ class print_receipt:
         self.jerash = jerash
         try:
             self.p = Usb(0x1504, 0x006e, 0,in_ep=0x81, out_ep=0x02)
-        except:
-            print("can't connect")
+        except Exception as e:
+            print("can't connect", e)
             
 
     
